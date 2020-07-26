@@ -1,0 +1,95 @@
+﻿@model TaskManager.Models.Mission
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Plan Görevi</h1>
+<br />
+<hr />
+<div>
+
+	<dl class="row">
+		<dt class="col-sm-2">
+			Resim
+		</dt>
+		<dd class="col-sm-10">
+			@if (Model.Photo != null)
+			{
+				<img src="~/Photo/@Model.Photo" height="150" width="150" />
+			}
+			else
+			{
+				<img src="https://www.clker.com/cliparts/K/0/N/F/h/W/task-md.png" height="150" width="150" />
+
+			}
+		</dd>
+		<dt class="col-sm-2">
+			İş Adı
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.TaskName)
+		</dd>
+		<dt class="col-sm-2">
+			iş Açıklama
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt class="col-sm-2">
+			iş başlama tarihi
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.StartingDate)
+		</dd>
+		<dt class="col-sm-2">
+			bitme tarihi
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.EndDate)
+		</dd>
+
+		<dt class="col-sm-2">
+			iş durumu
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Status)
+		</dd>
+		<dt class="col-sm-2">
+			öncelik
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Priority)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.CreateDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Model.CreateDate.ToString("dd/MM/yyy")
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.CreateBy)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.CreateBy)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.UpdateDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Model.UpdateDate.ToString("dd/MM/yyy")
+		</dd>
+		
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.UpdatedBy)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.UpdatedBy)
+		</dd>
+	</dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> 
+	<br />
+    <a asp-action="Index">Geri Dön</a>
+</div>

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<TaskManager.Models.Mission>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<TaskManager.Models.AppUser> SignInManager
+@inject UserManager<TaskManager.Models.AppUser> UserManager
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Planlar</h1>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+	<p>
+		<a asp-action="Create">İş planla</a>
+	</p>
+}
+
+
+
+
+
+<form asp-action="Index" asp-controller="mission" method="get">
+	<div class="form-row align-items-center hızafilter">
+		<div class="col-auto my-1">
+			<select class="custom-select mr-sm-2" name="order">
+				<option value="0" selected style="color:black">Sırala</option>
+
+				<option value="1" style="color:black">A'dan Z'ye listele</option>
+				<option value="2" style="color:black">Z'den A'ya listele</option>
+			</select>
+		</div>
+
+	</div>
+	<br />
+	<div>
+		<button id="flt" type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filtrele</button>
+	</div>
+	<br />
+</form>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Resim
+			</th>
+			<th>
+				İş Adı
+			</th>
+			<th>
+				iş Açıklama
+			</th>
+			<th>
+				İş Durumu
+			</th>
+			<th>
+				Öncelik
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreateDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreateBy)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.UpdateDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.UpdatedBy)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				@if (item.Photo != null)
+				{
+					<img src="~/Photo/@item.Photo" height="150" width="150" />
+				}
+				else
+				{
+					<img src="https://www.clker.com/cliparts/K/0/N/F/h/W/task-md.png" height="150" width="150" />
+
+				}
+
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TaskName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Status)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Priority)
+			</td>
+			<td>
+				@item.CreateDate.ToString("dd/MM/yyy")
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CreateBy)
+			</td>
+			<td>
+				@item.UpdateDate.ToString("dd/MM/yyy")
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.UpdatedBy)
+			</td>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+					<a asp-action="Detail" asp-route-id="@item.Id">Detay</a>
+					<a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+				</td>
+			}
+
+		</tr>
+		}
+	</tbody>
+</table>
